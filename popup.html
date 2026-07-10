@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="popup.css" />
+    <title>ModMyHeader</title>
+  </head>
+  <body>
+    <header class="top">
+      <h1>ModMyHeader</h1>
+      <label class="switch" title="Enable / disable all header overrides">
+        <input type="checkbox" id="enabled" />
+        <span class="slider"></span>
+      </label>
+    </header>
+
+    <p class="hint">Overrides apply to <strong>all sites</strong>. Empty header
+      names are ignored.</p>
+
+    <div id="rows" class="rows"></div>
+
+    <button id="add" class="add" type="button">+ Add header</button>
+
+    <footer class="foot">
+      <span id="status" class="status"></span>
+    </footer>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
