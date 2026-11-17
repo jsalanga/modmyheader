@@ -25,11 +25,11 @@
 }
 
 body {
-  width: 360px;
+  width: 380px;
   margin: 0;
   padding: 14px;
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--fg);
   background: var(--bg);
 }
@@ -42,14 +42,14 @@ body {
 }
 
 .top h1 {
-  font-size: 15px;
+  font-size: 16.5px;
   margin: 0;
 }
 
 .hint {
   margin: 0 0 12px;
   color: var(--muted);
-  font-size: 11.5px;
+  font-size: 12.5px;
   line-height: 1.4;
 }
 
@@ -111,7 +111,7 @@ body {
   border-radius: 6px;
   background: var(--input-bg);
   color: var(--fg);
-  font-size: 12.5px;
+  font-size: 13.5px;
 }
 
 .row input:focus {
@@ -141,7 +141,7 @@ body {
   border-radius: 6px;
   background: transparent;
   color: var(--accent);
-  font-size: 12.5px;
+  font-size: 13.5px;
   cursor: pointer;
 }
 .add:hover {
@@ -154,8 +154,134 @@ body {
 }
 .status {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 .status.saved {
   color: var(--accent);
+}
+
+/* Sections */
+.section {
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.section + .section {
+  margin-top: 14px;
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.section-title {
+  margin: 0 0 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.section-head .section-title {
+  margin: 0;
+}
+
+/* Debug presets */
+.presets {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.preset-head {
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  gap: 6px;
+  align-items: center;
+  padding: 5px 0;
+}
+.preset-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+.preset-desc {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+.expand {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.expand:hover:not(:disabled) {
+  background: var(--border);
+  color: var(--fg);
+}
+.expand:disabled {
+  visibility: hidden;
+}
+.expand.open {
+  transform: rotate(90deg);
+}
+.options {
+  margin: 0 0 6px 26px;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.options[hidden] {
+  display: none;
+}
+.options-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-family: ui-monospace, Consolas, monospace;
+  margin-bottom: 2px;
+}
+.option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.option input {
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+/* Smaller switch for preset rows */
+.switch.small {
+  width: 32px;
+  height: 18px;
+}
+.switch.small .slider::before {
+  height: 12px;
+  width: 12px;
+}
+.switch.small input:checked + .slider::before {
+  transform: translateX(14px);
+}
+
+/* Expand arrow: CSS chevron (text glyphs render too small in some fonts) */
+.expand.chevron::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 2px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
 }

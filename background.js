@@ -1,6 +1,8 @@
 // Service worker: keeps the declarativeNetRequest dynamic rule in sync with
 // what the user has configured in the popup (stored in chrome.storage.local).
 
+importScripts("presets.js"); // PRESETS, presetHeaders()
+
 const RULE_ID = 1;
 
 // All resource types, so headers are overridden on every kind of request
@@ -22,20 +24,32 @@ const ALL_RESOURCE_TYPES = [
 ];
 
 async function syncRules() {
-  const { enabled = false, headers = [] } =
-    await chrome.storage.local.get(["enabled", "headers"]);
+  const { enabled = false, headers = [], presets = {} } =
+    await chrome.storage.local.get(["enabled", "headers", "presets"]);
 
-  // Build the list of header modifications from valid rows only.
-  const requestHeaders = headers
-    .filter((h) => h && typeof h.name === "string" && h.name.trim() !== "")
-    .map((h) => ({
-      header: h.name.trim(),
-      operation: "set",
-      value: h.value != null ? String(h.value) : ""
-    }));
+  // Custom headers (master switch) from valid rows only.
+  const custom = enabled
+    ? headers
+        .filter((h) => h && typeof h.name === "string" && h.name.trim() !== "")
+        .map((h) => ({ name: h.name.trim(), value: h.value != null ? String(h.value) : "" }))
+    : [];
+
+  // Debug presets have their own switches. A custom header with the same
+  // name replaces the preset's value, since it is the more explicit choice.
+  const customNames = new Set(custom.map((h) => h.name.toLowerCase()));
+  const combined = [
+    ...presetHeaders(presets).filter((h) => !customNames.has(h.name.toLowerCase())),
+    ...custom
+  ];
+
+  const requestHeaders = combined.map((h) => ({
+    header: h.name,
+    operation: "set",
+    value: h.value
+  }));
 
   const addRules =
-    enabled && requestHeaders.length > 0
+    requestHeaders.length > 0
       ? [
           {
             id: RULE_ID,
@@ -65,7 +79,7 @@ async function syncRules() {
 
 // Re-sync whenever the popup changes the config...
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === "local" && (changes.enabled || changes.headers)) {
+  if (area === "local" && (changes.enabled || changes.headers || changes.presets)) {
     syncRules();
   }
 });

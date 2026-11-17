@@ -9,23 +9,37 @@
   <body>
     <header class="top">
       <h1>ModMyHeader</h1>
-      <label class="switch" title="Enable / disable all header overrides">
-        <input type="checkbox" id="enabled" />
-        <span class="slider"></span>
-      </label>
     </header>
 
-    <p class="hint">Overrides apply to <strong>all sites</strong>. Empty header
-      names are ignored.</p>
+    <p class="hint">Overrides apply to <strong>all sites</strong>. Check the
+      results in DevTools &rarr; Network &rarr; response headers.</p>
 
-    <div id="rows" class="rows"></div>
+    <section class="section">
+      <h2 class="section-title">Debug presets</h2>
+      <div id="presets" class="presets"></div>
+    </section>
 
-    <button id="add" class="add" type="button">+ Add header</button>
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Custom headers</h2>
+        <label class="switch" title="Enable / disable custom headers">
+          <input type="checkbox" id="enabled" />
+          <span class="slider"></span>
+        </label>
+      </div>
+      <p class="hint">Empty header names are ignored. A custom header replaces a
+        preset header with the same name.</p>
+
+      <div id="rows" class="rows"></div>
+
+      <button id="add" class="add" type="button">+ Add header</button>
+    </section>
 
     <footer class="foot">
       <span id="status" class="status"></span>
     </footer>
 
+    <script src="presets.js"></script>
     <script src="popup.js"></script>
   </body>
 </html>
