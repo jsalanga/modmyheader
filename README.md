@@ -66,14 +66,6 @@ client IP, TLS session ID and Resource Optimizer trace.
 - A **custom header with the same name** as a preset header **replaces** the
   preset's value, so custom headers always win.
 
-### Akamai Staging vs. Production
-
-A request header can't switch you to the Akamai **Staging** network. That
-needs a hosts-file (or DNS) entry pointing your site at the staging edge
-hostname (e.g. `*.edgekey-staging.net` or `*.edgesuite-staging.net`). Once you're
-on staging, Akamai responses include an `X-Akamai-Staging` header, which you
-can confirm in DevTools.
-
 ## Limitations
 
 - Chrome doesn't let extensions override some browser-controlled headers
